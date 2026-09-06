@@ -15,8 +15,8 @@ def SQL(path):
     return connection
 
 
-conn = sqlite3.connect(songs.db)
-cursor = conn.cursor()
+conn = sqlite3.connect("songs.db")
+songs_db = conn.cursor()
 
 
 
@@ -24,18 +24,12 @@ cursor = conn.cursor()
 @app.route("/", methods=["GET","POST"])
 def index():
 
-    if request.method == "GET":
+    if request.method =="GET":
         return render_template("index.html")
-
+        
     else:
         q = request.form.get("q", "error ?")
-
         return render_template("search.html", q=q)
-
-
- 
-
-
 
 
 
@@ -47,4 +41,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,TEMPLATES_AUTO_RELOAD=True)
