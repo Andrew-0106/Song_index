@@ -15,7 +15,8 @@ def SQL(path):
     return connection
 
 
-db = SQL("sqlite:///songs.db")
+conn = sqlite3.connect(songs.db)
+cursor = conn.cursor()
 
 
 
