@@ -1,24 +1,7 @@
 from flask import Flask , render_template, request
 import sqlite3
-from sqlite3 import Error
 
 app = Flask(__name__)
-
-def SQL(path):
-    connection = None
-    try:
-        connection = sqlite3.connect(path)
-        print("Connection to SQLite DB successful")
-    except Error as e:
-        print(f"The error '{e}' occurred")
-
-    return connection
-
-
-conn = sqlite3.connect("songs.db")
-songs_db = conn.cursor()
-
-
 
 
 @app.route("/", methods=["GET","POST"])
@@ -29,7 +12,14 @@ def index():
         
     else:
         q = request.form.get("q", "error ?")
-        return render_template("search.html", q=q)
+        conn = sqlite3.connect("songs.db")
+        conn.row_factory = sqlite3.Row
+        songs_db = conn.cursor()
+        songs_dic = songs_db.execute(
+            "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
+        for song in songs_dic:
+            print(song["title"], song["filename"])
+        return render_template("search.html", q=q, songs_dic= songs_dic)
 
 
 

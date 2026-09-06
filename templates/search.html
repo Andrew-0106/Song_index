@@ -1,7 +1,21 @@
 {% extends "layout.html" %}
         
 {% block body %}  
-    <h1>
-    search: {{q}}
-    </h1>
+    <a href="/" class="button-style">Go Home</a> 
+    <p>Search result for:  {{q}}  </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Songs</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for song in songs_dic %}
+            <tr> 
+                <td>{{ song["title"] }}</td>
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}  
