@@ -1,8 +1,9 @@
 from flask import Flask , render_template, request
 import sqlite3
+from make_db import make_song_db
 
 app = Flask(__name__)
-
+make_song_db()
 
 @app.route("/", methods=["GET","POST"])
 def index():
