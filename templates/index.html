@@ -1,8 +1,19 @@
 {% extends "layout.html" %}
         
 {% block body %}  
-    <form action="/" method="post">
         <input autocomplete="off" autofocus name="q" placeholder="Search" type="text">
-        <button type="submit">Search</button>
-    </form>
+        <ul></ul>
+        <script>
+                let input = document.querySelector('input')
+                input.addEventListener('input', async function() {
+                    let response = await fetch('/search?q=' + input.value);
+                    let songs = await response.json();
+                    let html = '';
+                    for (let i in songs) {
+                        let title = songs[i].title.replace('<', '&lt;').replace('&', '&amp;');
+                    html += '<li>' + title + '</li>';
+                    }
+                    document.querySelector('ul').innerHTML = html;
+                });
+        </script>
 {% endblock %}  

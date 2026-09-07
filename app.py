@@ -1,29 +1,33 @@
-from flask import Flask , render_template, request
+from flask import Flask, jsonify, render_template, request
 import sqlite3
-from make_db import make_song_db
+from make_db import make_song_db, dict_factory
 
 app = Flask(__name__)
 make_song_db()
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/")
 def index():
-
-    if request.method =="GET":
-        return render_template("index.html")
-        
-    else:
-        q = request.form.get("q", "error ?")
-        conn = sqlite3.connect("songs.db")
-        conn.row_factory = sqlite3.Row
-        songs_db = conn.cursor()
-        songs_dic = songs_db.execute(
-            "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
-        for song in songs_dic:
-            print(song["title"], song["filename"])
-        return render_template("search.html", q=q, songs_dic= songs_dic)
+    return render_template("index.html")
 
 
 
+
+@app.route("/search")
+def search():
+    q = request.args.get("q", "")
+
+    if q:
+        with sqlite3.connect("songs.db") as conn:
+            conn.row_factory = dict_factory
+            songs_db = conn.cursor()
+            songs = songs_db.execute(
+                "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
+            for song in songs :
+                songs = (songs)
+            
+    else: songs = []
+    return jsonify(songs)
+ 
 
 
 

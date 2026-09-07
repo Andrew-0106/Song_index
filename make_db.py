@@ -1,6 +1,12 @@
 import sqlite3
 import os
 
+
+def dict_factory(cursor, row):
+    columns = [col[0] for col in cursor.description]
+    return dict(zip(columns, row))
+
+
 def make_song_db():
     if os.path.exists("songs.db"):
         os.remove("songs.db")
