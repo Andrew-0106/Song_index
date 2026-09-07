@@ -28,9 +28,10 @@ def search():
 
 
  
-@app.route("/")
+@app.route("/Player", methods=["POST"])
 def music_player():
-    song = request.args.get("song", "")
+    song = request.form.get("song", "")
+    
 
 
 
