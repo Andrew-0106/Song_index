@@ -22,13 +22,15 @@ def search():
             songs_db = conn.cursor()
             songs = songs_db.execute(
                 "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
-            for song in songs :
-                songs = (songs)
-            
     else: songs = []
     return jsonify(songs)
- 
 
+
+
+ 
+@app.route("/")
+def music_player():
+    song = request.args.get("song", "")
 
 
 
