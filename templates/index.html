@@ -2,6 +2,8 @@
         
 {% block body %}  
         <input autocomplete="off" autofocus name="q" placeholder="Search" type="text">
+        <ul></ul>
+
         <script>
                 let input = document.querySelector('input')
                 input.addEventListener('input', async function() {
@@ -9,10 +11,12 @@
                     let songs = await response.json();
                     let html = '';
                     for (let i in songs) {
-                        let title = songs[i].title.replace('<', '&lt;').replace('&', '&amp;');
-                    html += '<li>' + title + '</li>';
+                        let title = songs[i].title.replace(/</g, '&lt;').replace(/&/g, '&amp;');
+                    html += '<li>  <a href="/Player/' + songs[i].id + '">' + title + '</a> </li>';
                     }
                     document.querySelector('ul').innerHTML = html;
                 });
         </script>
 {% endblock %}  
+
+

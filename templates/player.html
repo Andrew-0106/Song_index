@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+        
+{% block body %}  
+
+    {% if found == True %}
+        <p>song id: {{ song["id"] }}</p>
+        <p>song name: {{ song["title"] }}</p>
+        <p>song path: {{ song["filename"] }}</p>
+
+        <audio controls>
+            <source src="{{url_for('songs',filename=song['filename']) }}">
+            Your browser does not support the audio tag.
+        </audio>
+
+
+    {% else %}
+        <p>Error 404</p>
+        <p>song not found </p>
+
+    {% endif %}
+
+{% endblock %}  
