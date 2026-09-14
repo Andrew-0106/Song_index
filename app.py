@@ -13,20 +13,26 @@ def index():
 
 
 
-
 @app.route("/search")
 def search():
     q = request.args.get("q", "")
+    search_by = request.args.get("search_by", "")
 
     if q:
-        with sqlite3.connect("songs.db") as conn:
-            conn.row_factory = dict_factory
-            songs_db = conn.cursor()
-            songs = songs_db.execute(
-                "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
+        if search_by == "album":
+            with sqlite3.connect("songs.db") as conn:
+                            conn.row_factory = dict_factory
+                            songs_db = conn.cursor()
+                            songs = songs_db.execute(
+                                "SELECT * FROM songs WHERE album like ?",(f"%{q}%",)).fetchall()
+        else:
+            with sqlite3.connect("songs.db") as conn:
+                conn.row_factory = dict_factory
+                songs_db = conn.cursor()
+                songs = songs_db.execute(
+                    "SELECT * FROM songs WHERE title LIKE ?",(f"%{q}%",)).fetchall()
     else: songs = []
     return jsonify(songs)
-
 
 
  
@@ -39,18 +45,19 @@ def player(song_id):
             song = songs_db.execute(
                 "SELECT * FROM songs WHERE id=?",(song_id,)).fetchone()
         if song:
-            print(song)
             return render_template("player.html", found= True, song=song)
         else:
             return render_template("player.html", found= False)
     else: 
         return render_template("player.html", found= False)
 
-    
+
 
 @app.route('/songs/<path:filename>')
 def songs(filename):
     return send_from_directory('songs', filename)
+
+
 
 
 

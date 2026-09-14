@@ -1,21 +1,68 @@
 
+:root {
+  color-scheme: light dark;
+  --bg-color: light-dark(#ffffff, #121212);
+  --text-color: light-dark(#121212, #fbf4ed);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}   
+
+#welcome{
+  margin:20px;
+  text-align: center;
+}
+
+#search{
+  margin: 10px;
+  padding: 10px;
+}
+
+#album_cell{
+  background-color: rgb(76, 76, 76);
+  color: rgb(245, 214, 214);
+  font-size: small;
+  margin: 10px;
+  width: 25%;
+}
+
+#song_cell{
+  background-color: rgb(36, 36, 36);
+  color: wheat;
+  font-size: large;
+  flex-wrap: wrap;
+  margin: 10px;
+  width: 75%;
+  
+}
+
+#song_link{
+  color: cyan;
+}
+
 a:link {
-  color: black;
+  color: #fbf4ed;
   background-color: transparent;
   text-decoration: none;
 }
 a:visited {
-  color: black;
+  color: #fbf4ed;
   background-color: transparent;
   text-decoration: none;
 }
 a:hover {
-  color: green;
+  color: #03dac6;
   background-color: transparent;
   text-decoration: underline;
 }
 a:active {
-  color: black;
+  color: #5b69ff;
   background-color: transparent;
   text-decoration: underline;
+}
+
+td{
+  padding: 7px;
 }

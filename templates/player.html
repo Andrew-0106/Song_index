@@ -3,19 +3,30 @@
 {% block body %}  
 
     {% if found == True %}
-        <p>song id: {{ song["id"] }}</p>
-        <p>song name: {{ song["title"] }}</p>
-        <p>song path: {{ song["filename"] }}</p>
-
+        <h2>Song: {{ song["title"] }}</h2>
+        <h3>Album: {{ song["album"] }}</h3>
+        </br>
         <audio controls>
             <source src="{{url_for('songs',filename=song['filename']) }}">
             Your browser does not support the audio tag.
         </audio>
 
+        </br></br>
+        
+        <a href="/">
+            Go back
+            <img src="{{url_for('icons', filename='home')}}" alt="Home" width="20">
+        </a>
+
 
     {% else %}
-        <p>Error 404</p>
-        <p>song not found </p>
+
+        <div class="alert alert-danger" role="alert">
+            Error 404: song not found
+            </br>
+            <a href="/"> Go back </a>
+        </div>
+
 
     {% endif %}
 

@@ -1,8 +1,22 @@
 {% extends "layout.html" %}
         
 {% block body %}  
-        <input autocomplete="off" autofocus name="q" placeholder="Search" type="text">
-        <ul></ul>
+       
+        <h2 id="welcome">Welcome to song indexer</h2>
+
+        <input id="search" autocomplete="off" autofocus name="q" placeholder="Search" type="text">
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                search songs by
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Name</a></li>
+                <li><a class="dropdown-item" href="#">Album</a></li>
+            </ul>
+        </div>
+
+        <table></table>
 
         <script>
                 let input = document.querySelector('input')
@@ -12,9 +26,11 @@
                     let html = '';
                     for (let i in songs) {
                         let title = songs[i].title.replace(/</g, '&lt;').replace(/&/g, '&amp;');
-                    html += '<li>  <a href="/Player/' + songs[i].id + '">' + title + '</a> </li>';
+                        let album = songs[i].album.replace(/</g, '&lt;').replace(/&/g, '&amp;');
+
+                    html += '<tr> <td id="album_cell">' + album + '</td> <td id="song_cell"><a id="song_link" href="/Player/' + songs[i].id + '">' + title + '</a></td> </tr>';
                     }
-                    document.querySelector('ul').innerHTML = html;
+                    document.querySelector('table').innerHTML = html;
                 });
         </script>
 {% endblock %}  
