@@ -4,18 +4,20 @@
        
         <h2 id="welcome">Welcome to song indexer</h2>
 
-        <input id="search" autocomplete="off" autofocus name="q" placeholder="Search" type="text">
+        <div class="m_div">
+            
+            <input id="search" class="form-control me-2 rounded-pill" autocomplete="off" autofocus name="q" placeholder="Search" type="text">
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                search songs by
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Name</a></li>
-                <li><a class="dropdown-item" href="#">Album</a></li>
-            </ul>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    search songs by
+                </button>
+                 <ul class="dropdown-menu">
+                     <li><a class="dropdown-item" href="#">Name</a></li>
+                     <li><a class="dropdown-item" href="#">Album</a></li>
+                </ul>
+            </div>
         </div>
-
         <table></table>
 
         <script>
